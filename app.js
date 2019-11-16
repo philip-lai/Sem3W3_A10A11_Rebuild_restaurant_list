@@ -92,12 +92,34 @@ app.post('/restaurants', (req, res) => {
 
 // 修改 Todo 頁面
 app.get('/restaurants/:id/edit', (req, res) => {
-  res.send('修改 Restaurant 頁面')
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.error(err)
+    return res.render('edit', { restaurant: restaurant })
+  })
+  // res.send('修改 Restaurant 頁面')
 })
 
 // 修改 Todo
 app.post('/restaurants/:id/edit', (req, res) => {
-  res.send('修改 Restaurant')
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    console.log(req.params.id)
+    if (err) return console.error(err)
+    restaurant.name = req.body.name
+    restaurant.name_en = req.body.name_en
+    restaurant.category = req.body.category
+    restaurant.location = req.body.location
+    restaurant.phone = req.body.phone
+    restaurant.description = req.body.description
+    restaurant.google_map = req.body.google_map
+    restaurant.image = req.body.image
+    restaurant.rating = req.body.rating
+
+    restaurant.save(err => {
+      if (err) return console.error(err)
+      return res.redirect(`/restaurants/${req.params.id}`)
+    })
+  })
+  // res.send('修改 Restaurant')
 })
 
 // 刪除 Todo
