@@ -2,6 +2,16 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 
+// 引用 express-handlebars
+const exphbs = require('express-handlebars');
+
+// 告訴 express 使用 handlebars 當作 template engine 並預設 layout 是 main
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.set('view engine', 'handlebars')
+
+// setting static files
+app.use(express.static('public'))
+
 // 設定連線到 mongoDB
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -23,7 +33,13 @@ const Restaurant = require('./models/restaurant')
 
 // 設定第一個首頁路由
 app.get('/', (req, res) => {
-  res.send('hello world')
+  Restaurant.find((err, restaurants) => {
+    if (err) return console.error(err)
+    return res.render('index', { restaurants: restaurants })
+  })
+
+  // return res.render('index')
+  // res.send('hello world')
 })
 
 // 列出全部 Todo
