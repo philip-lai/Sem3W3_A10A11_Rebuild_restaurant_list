@@ -26,6 +26,35 @@ app.get('/', (req, res) => {
   res.send('hello world')
 })
 
+// 列出全部 Todo
+app.get('/restaurants', (req, res) => {
+  res.send('列出所有 Restaurant')
+})
+// 新增一筆 Todo 頁面
+app.get('/restaurants/new', (req, res) => {
+  res.send('新增 Restaurant 頁面')
+})
+// 顯示一筆 Todo 的詳細內容
+app.get('/restaurants/:id', (req, res) => {
+  res.send('顯示 Restaurant 的詳細內容')
+})
+// 新增一筆  Todo
+app.post('/restaurants', (req, res) => {
+  res.send('建立 Restaurnat')
+})
+// 修改 Todo 頁面
+app.get('/restaurants/:id/edit', (req, res) => {
+  res.send('修改 Restaurant 頁面')
+})
+// 修改 Todo
+app.post('/restaurants/:id/edit', (req, res) => {
+  res.send('修改 Restaurant')
+})
+// 刪除 Todo
+app.post('/restaurants/:id/delete', (req, res) => {
+  res.send('刪除 Restaurant')
+})
+
 //設定express port 3000
 app.listen(3000, () => {
   console.log('app is running')
