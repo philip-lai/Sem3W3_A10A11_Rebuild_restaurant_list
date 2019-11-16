@@ -124,7 +124,14 @@ app.post('/restaurants/:id/edit', (req, res) => {
 
 // 刪除 Todo
 app.post('/restaurants/:id/delete', (req, res) => {
-  res.send('刪除 Restaurant')
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.error(err)
+    restaurant.remove(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
+  // res.send('刪除 Restaurant')
 })
 
 //設定express port 3000
