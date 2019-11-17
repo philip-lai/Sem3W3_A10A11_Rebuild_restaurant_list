@@ -47,18 +47,19 @@ app.get('/', (req, res) => {
   // res.send('hello world')
 })
 
-// 列出全部 Todo
+// 列出全部 Restaurant
 app.get('/restaurants', (req, res) => {
-  res.send('列出所有 Restaurant')
+  return res.render('new')
+  //res.send('列出所有 Restaurant')
 })
 
-// 新增一筆 Todo 頁面
+// 新增一筆 Restaurant 頁面
 app.get('/restaurants/new', (req, res) => {
   return res.render('new')
   // res.send('新增 Restaurant 頁面')
 })
 
-// 顯示一筆 Todo 的詳細內容
+// 顯示一筆 restaurant 的詳細內容
 app.get('/restaurants/:id', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
@@ -67,7 +68,7 @@ app.get('/restaurants/:id', (req, res) => {
   // res.send('顯示 Restaurant 的詳細內容')
 })
 
-// 新增一筆  Todo
+// 新增一筆  Restaurant
 app.post('/restaurants', (req, res) => {
   // 建立Todo model 實例
   const restaurant = new Restaurant({
@@ -90,7 +91,7 @@ app.post('/restaurants', (req, res) => {
   // res.send('建立 Restaurnat')
 })
 
-// 修改 Todo 頁面
+// 修改 Restaurant 頁面
 app.get('/restaurants/:id/edit', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
@@ -99,7 +100,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
   // res.send('修改 Restaurant 頁面')
 })
 
-// 修改 Todo
+// 修改 Restaurnat
 app.post('/restaurants/:id/edit', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     console.log(req.params.id)
@@ -122,7 +123,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
   // res.send('修改 Restaurant')
 })
 
-// 刪除 Todo
+// 刪除 Restaurant
 app.post('/restaurants/:id/delete', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
@@ -133,6 +134,31 @@ app.post('/restaurants/:id/delete', (req, res) => {
   })
   // res.send('刪除 Restaurant')
 })
+
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  if (keyword.trim().length === 0) {
+    return res.redirect('/')
+  } else {
+    Restaurant.find((err, restaurants) => {
+      if (err) return console.error(err)
+      const searchResults = restaurants.filter(restaurant => {
+        return (restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.name_en.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.toLowerCase()) || restaurant.location.toLowerCase().includes(keyword.toLowerCase()) || restaurant.description.toLowerCase().includes(keyword.toLowerCase())
+        )
+      })
+      res.render('index', { restaurants: searchResults })
+    })
+
+  }
+})
+
+app.post('/sort', (req, res) => {
+  console.log(req.body)
+  return res.redirect('/')
+})
+
+
+
 
 //設定express port 3000
 app.listen(3000, () => {

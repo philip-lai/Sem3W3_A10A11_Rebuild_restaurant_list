@@ -2,9 +2,9 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-      <a href="/restaurants/{{{restaurant.id}}}/edit">edit</a>
-      <form action="/todos/{{{restaurant.id}}}/delete" method="POST" style="display: inline;">
-        <button type="submit">delete</button>
+      <a href="/restaurants/{{{restaurant.id}}}/edit" class="btn btn-success">edit</a>
+      <form action="/restaurants/{{{restaurant.id}}}/delete" method="POST" style="display: inline;">
+        <button type="submit" class="btn btn-danger">delete</button>
       </form>
 
       <p class="mb-1">
