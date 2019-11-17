@@ -16,7 +16,7 @@
 <img src="https://github.com/philip-lai/Sem3W3_A10A11_Rebuild_restaurant_list/blob/master/README_pic/index_page.png?raw=true" width="100%" />
 
 #### 餐廳資訊頁面
-<img src="https://github.com/philip-lai/Sem3W3_A10A11_Rebuild_restaurant_list/blob/master/README_pic/detail_page.png?raw=true" width="100%" />
+<img src="https://github.com/philip-lai/Sem3W3_A10A11_Rebuild_restaurant_list/blob/master/README_pic/searchpage.png?raw=true" width="100%" />
 
 #### 使用餐廳名稱搜尋
 <img src="https://github.com/philip-lai/Sem3-S2A1_Restaurant_list/blob/master/README_pic/search_by_name.png?raw=true" width="100%" />
