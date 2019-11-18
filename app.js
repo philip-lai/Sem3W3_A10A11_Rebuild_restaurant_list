@@ -5,15 +5,11 @@ const mongoose = require('mongoose')
 // 引用 express-handlebars
 const exphbs = require('express-handlebars');
 
-// 引用 method-override
-const methodOverride = require('method-override')
 
 // 告訴 express 使用 handlebars 當作 template engine 並預設 layout 是 main
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// 設定 method-override
-app.use(methodOverride('_method'))
 
 // 引用 body-parser
 const bodyParser = require('body-parser');
@@ -107,7 +103,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 
 // 修改 Restaurnat
-app.put('/restaurants/:id/edit', (req, res) => {
+app.post('/restaurants/:id/edit', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     console.log(req.params.id)
     if (err) return console.error(err)
@@ -130,7 +126,7 @@ app.put('/restaurants/:id/edit', (req, res) => {
 })
 
 // 刪除 Restaurant
-app.delete('/restaurants/:id/delete', (req, res) => {
+app.post('/restaurants/:id/delete', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
     restaurant.remove(err => {
@@ -157,14 +153,6 @@ app.get('/search', (req, res) => {
 
   }
 })
-
-app.post('/sort', (req, res) => {
-  console.log(req.body)
-  return res.redirect('/')
-})
-
-
-
 
 //設定express port 3000
 app.listen(3000, () => {
